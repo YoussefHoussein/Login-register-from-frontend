@@ -1,0 +1,22 @@
+body{
+    background: lightblue;
+}
+.inner-row{
+    height: 100vh;
+}
+.primaryBg{
+    background-color: lightblue;
+}
+.primaryColor{
+    color: lightblue;
+}
+.form-box{
+    background: #fff;
+}
+.register-link{
+    text-decoration: none;
+    color: black;
+}
+a.register-link:hover{
+    color: lightblue;
+}
