@@ -1,39 +1,37 @@
 const pages ={}
 
-pages.base_url = "http://localhost/Login-register-backend/";
 
 
 
 
 pages.page_index =  () => {
-    const index_url = pages.base_url + "login.php"
-    const username = document.getElementById("floatingInput")
-    const password = document.getElementById("floatingPassword")
-    const btn_submit = document.getElementById("login")
+    const index_url = "http://localhost/Login-register-backend/login.php"
+    const username = document.getElementById("login-username")
+    const password = document.getElementById("login-password")
+    const btn_submit = document.getElementById("btn-login")
+    const link =document.getElementById("link-login")
 
-    btn_submit.addEventListener("click", (e) =>{
-        e.preventDefault()
+    btn_submit.addEventListener("click", function(){
+        const data = new FormData()
+        data.append("username",username.value)
+        data.append("password",password.value)
 
-        const data ={
-            username,
-            password,
-        }
-        
-        fetch(index_url, {
+        fetch(index_url , {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-                
-              },
-            body: JSON.stringify(data),
-        })
-        .then((response) => response.json())
-        .then((data)=>{
-            console.log(data)
-        })
-        .catch((data) =>{
-            console.log(data.messaage)
-        })
+             body: data
+         })
+        .then(response => response.json())
+        .then(newPost => {
+            const first_name = newPost.first_name
+            const last_name = newPost.last_name
+        if(newPost.status == "success"){
+
+            localStorage.setItem('firstname',first_name)
+             localStorage.setItem('lastname',last_name)
+            document.getElementById('link-login').click()
+            }
+         })
+            .catch(error => console.log(error))
     })
 
     
@@ -42,7 +40,7 @@ pages.page_index =  () => {
 
 
 pages.page_register = () => {
-    const articles_url = pages.base_url + "register.php";
+    const register_url = "http://localhost/Login-register-backend/register.php";
     const first_name = document.getElementById('first_name')
     const last_name =document.getElementById('last_name')
     const username=document.getElementById('username')
@@ -74,7 +72,7 @@ pages.page_register = () => {
                 data.append("username",username.value)
                 data.append("password",password.value)
 
-                fetch("http://localhost/Login-register-backend/register.php" , {
+                fetch(register_url , {
                     method: "POST",
                     body: data
                 })
